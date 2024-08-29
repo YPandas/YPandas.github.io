@@ -2,7 +2,7 @@
     <section id="projects">
         <div class="project-wrapper">
             <div class="project-title">
-                Projects
+                Project Collections
             </div>
             <div class="project-list">
                 <ProjectBox 
@@ -32,7 +32,7 @@
                 :projectURL="sfURL"/>
                 <ProjectBox
                 :backgroundImage="hfoImage"
-                projectName="pyHFO"
+                projectName="PyHFO"
                 :imageText="hfoText"
                 :projectURL="hfoURL"/>
             </div>
