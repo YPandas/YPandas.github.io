@@ -6,16 +6,24 @@
     align-items: center;
     .blog-title {
         margin-top: 7%;
-        font-family: "Ink Free";
+        font-family: "Calibri";
         font-weight: 700;
         color: white;
         font-size: 50px;
     }
-    .blog-content {
-        width: 80%;
+    .blog-list {
+        width: 40%;
         height: 80%;
         font-family: "Consolas";
         color: white;
         margin-top: 2%;
+        text-decoration: underline;
+        font-size: 1.2vw;
+        :hover {
+            cursor: pointer;
+        }
+        li {
+            padding-top: 2%;
+        }
     }
 }

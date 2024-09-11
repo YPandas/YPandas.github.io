@@ -1,4 +1,4 @@
-# Kubernetes Mirroring Setup
+***
 
 This document outlines the steps to set up mirroring (high availability and redundancy) for your application using Kubernetes. The guide covers containerizing your application, creating a Deployment, exposing it with a Service, and managing scaling and updates.
 

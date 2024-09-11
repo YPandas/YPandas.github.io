@@ -3,15 +3,26 @@
         <div class="blog-title">
             Blog Collections
         </div>
-        <div class="blog-content">
+        <div class="blog-list">
             <ul>
-                <li>How to update MERN application hosted with Nginx and PM2</li>
-                <li>
-                    <button @click="navigateTo('Kubernetes-Mirroring-Setup')">
-                        Kubernetes Mirroring Setup
-                    </button>
+                <li @click="navigateTo('MERN-Deploy')">
+                    How to Deploy MERN APP with Nginx and PM2
                 </li>
-                <li>My understanding of docker</li>
+                <li @click="navigateTo('Docker-Image-Guide')">
+                    How to update MERN application hosted with Nginx and PM2
+                </li>
+                <li @click="navigateTo('Kubernetes-Mirroring-Setup')">
+                    Kubernetes Mirroring Setup
+                </li>
+                <li @click="navigateTo('Py2App-Guide')">
+                    How to Package a Python Application into a macOS App
+                </li>
+                <li @click="navigateTo('Docker-Intro')">
+                    My understanding of docker
+                </li>
+                <li>
+                    To Be Continued...
+                </li>
             </ul>
         </div>
     </section>
@@ -24,10 +35,11 @@ export default {
     name: 'BlogSection',
     methods: {
         navigateTo(routeName) {
-            console.log("im here", this.$route.name)
             if (this.$route.name !== routeName) {
-                console.log('uummm')
-                this.$router.push({ name: routeName });
+                this.$router.push({ name: routeName }).then(() => {
+                    // Scroll to the top of the page after the route is changed
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
             }
         }
     }

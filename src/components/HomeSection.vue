@@ -46,7 +46,7 @@ export default {
   height: 100vh;
   width: 100%;
   text-align: center;
-  font-family: "Ink Free";
+  font-family: "Calibri"; 
   color: azure;
   .greeting {
     font-size: 90px;

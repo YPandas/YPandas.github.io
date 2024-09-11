@@ -1,5 +1,7 @@
 <template>
     <section class="content-wrapper">
+        <div class="blog-background"></div>
+        <img class="blog-pic" v-if="blogPic" :src="blogPic">
         <div class="blog-title">
         {{ blogTitle }}
         </div>
@@ -23,7 +25,11 @@ export default {
   },
   props: {
     blogTitle: String,
-    blogContent : String
+    blogContent: String,
+    blogPic: {
+      type: String,
+      required: false
+    }
   },
   created() {
     try {
@@ -39,6 +45,20 @@ export default {
 </script>
 
 <style>
+.blog-background {
+  background-color: #092332;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  background-size: cover;
+  background-position: center;
+  position: fixed;
+  z-index: 0;
+}
+.blog-pic {
+  position: fixed;
+  margin-top: 10%;
+  opacity: 15%;
+}
 .content-wrapper {
     height: 100vh;
     width: 100%;
@@ -48,23 +68,44 @@ export default {
     align-items: center;
     z-index: 2;
     position: relative;
-    font-family: "Consolas";
-    color: white;
+    font-family: "Cambria";
+    color: rgb(255, 255, 255);
 }
 .blog-title {
-    font-size: 30px;
+    font-size: 35px;
     font-weight: 600;
-    margin-top: 7%
+    margin-top: 7%;
+    position: relative;
 }
 .blog-content {
-    width: 80%;
-    h2 {
-        text-decoration: underline;
+  position: relative;
+  width: 80%;
+  margin-top: 2%;
+  font-size: 1.2rem;
+  h1 {
+    font-size: 25px;
+  }
+  h2 {
+    color: white;
+    font-size: 20px;
+  }
+  h3 {
+    font-size: 18px;
+  }
+  pre {
+    border-radius: 7px;
+    padding: 1% 2%;
+    background-color: #6a90bb;
+    font-size: 16px;
+    code {
+      font-family: 'Lucida Console';
     }
-    pre {
-        border: solid 1px white;
-        border-radius: 10px;
-        padding: 1% 2%;
-    }
+  }
+  div {
+    padding: 0 15%;
+  }
+  a {
+    color: rgb(255, 105, 105);
+  }
 }
 </style>

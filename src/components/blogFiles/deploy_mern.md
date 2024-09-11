@@ -1,5 +1,4 @@
 
-markdown_content = """
 # Deploying a MERN Application on Linode Using Nginx and PM2
 
 Deploying a **MERN** (MongoDB, Express, React, Node.js) application requires proper setup and configuration to ensure the frontend, backend, and database are properly connected and managed. In this guide, I will show you how to deploy a MERN app on a Linode server using **Nginx** for reverse proxy and **PM2** for process management.
@@ -11,7 +10,7 @@ Deploying a **MERN** (MongoDB, Express, React, Node.js) application requires pro
 3. A domain name (optional, but recommended).
 4. Basic knowledge of Linux commands.
 
-Let’s get started.
+Let's get started.
 
 ---
 
@@ -20,42 +19,42 @@ Let’s get started.
 ### 1.1. First Login
 Start by logging into your Linode server using SSH:
 
-\`\`\`bash
+```bash
 ssh root@<your-server-ip>
-\`\`\`
+```
 
 ### 1.2. Update and Upgrade Packages
-It’s always a good practice to ensure that your Linux system is up-to-date:
+It's always a good practice to ensure that your Linux system is up-to-date:
 
-\`\`\`bash
+```bash
 apt update && apt upgrade
-\`\`\`
+```
 
 ### 1.3. Create a New User and Add to Sudo Group
 Create a new user to manage the deployment process:
 
-\`\`\`bash
+```bash
 adduser <username>
 usermod -aG sudo <username>
-\`\`\`
+```
 
 After creating the user, log out from the root user:
 
-\`\`\`bash
+```bash
 logout
-\`\`\`
+```
 
 Now, log back in as the new user:
 
-\`\`\`bash
+```bash
 ssh <username>@<your-server-ip>
-\`\`\`
+```
 
 Check if the new user has sudo privileges:
 
-\`\`\`bash
+```bash
 sudo -v
-\`\`\`
+```
 
 ---
 
@@ -64,60 +63,60 @@ sudo -v
 ### 2.1. Create SSH Key Authentication
 Generate an SSH key pair on your local machine:
 
-\`\`\`bash
+```bash
 ssh-keygen -b 4096
-\`\`\`
+```
 
 Transfer the public key to the Linode server:
 
 - **Windows**:
-  \`\`\`bash
+  ```bash
   scp $env:USERPROFILE/.ssh/id_rsa.pub <username>@<your-server-ip>:~/.ssh/authorized_keys
-  \`\`\`
+  ```
 - **Mac/Linux**:
-  \`\`\`bash
+  ```bash
   scp ~/.ssh/id_rsa.pub <username>@<your-server-ip>:~/.ssh/authorized_keys
-  \`\`\`
+  ```
 
 ### 2.2. Configure SSH
 Open the SSH configuration file:
 
-\`\`\`bash
+```bash
 sudo nano /etc/ssh/sshd_config
-\`\`\`
+```
 
 Change the default SSH port to a non-standard port (e.g., 2222). After editing, restart SSH:
 
-\`\`\`bash
+```bash
 sudo systemctl restart sshd
-\`\`\`
+```
 
 Login again with the new SSH port:
 
-\`\`\`bash
+```bash
 ssh <username>@<your-server-ip> -p <new-ssh-port>
-\`\`\`
+```
 
 ### 2.3. Set Up Firewall
 Install **UFW** (Uncomplicated Firewall):
 
-\`\`\`bash
+```bash
 sudo apt install ufw
-\`\`\`
+```
 
 Allow the necessary ports (SSH, HTTP, HTTPS):
 
-\`\`\`bash
+```bash
 sudo ufw allow <ssh-port-number>
 sudo ufw allow http
 sudo ufw allow https
-\`\`\`
+```
 
 Enable the firewall:
 
-\`\`\`bash
+```bash
 sudo ufw enable
-\`\`\`
+```
 
 ---
 
@@ -126,25 +125,25 @@ sudo ufw enable
 ### 3.1. Install Node.js
 Follow the [NodeSource installation guide](https://github.com/nodesource/distributions#installation-instructions) to install Node.js. For example:
 
-\`\`\`bash
+```bash
 curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 sudo apt install -y nodejs
-\`\`\`
+```
 
 Verify the installation:
 
-\`\`\`bash
+```bash
 node --version
 npm --version
-\`\`\`
+```
 
 ### 3.2. Install Git
 Install Git to clone your project repository:
 
-\`\`\`bash
+```bash
 sudo apt install git
 git --version
-\`\`\`
+```
 
 ---
 
@@ -153,23 +152,23 @@ git --version
 ### 4.1. Clone the MERN App Repository
 Navigate to your apps folder and clone your repository:
 
-\`\`\`bash
+```bash
 mkdir apps
 cd apps
 git clone <your-repo-url>
-\`\`\`
+```
 
 ### 4.2. Install Dependencies
 Navigate to your **backend** and **frontend** directories and install dependencies:
 
-\`\`\`bash
+```bash
 cd backend
 npm install
 
 cd ../frontend
 npm install
 npm run build  # Build the React code
-\`\`\`
+```
 
 ---
 
@@ -178,23 +177,23 @@ npm run build  # Build the React code
 ### 5.1. Install PM2 Globally
 PM2 will help you manage and keep your Node.js application running:
 
-\`\`\`bash
+```bash
 sudo npm install -g pm2
-\`\`\`
+```
 
 ### 5.2. Start Your Backend Server with PM2
 Once the backend is set up, you can start it using PM2:
 
-\`\`\`bash
+```bash
 cd backend
 pm2 start server.js  # or dist/server.js if using TypeScript
-\`\`\`
+```
 
 Check the status of your PM2 processes:
 
-\`\`\`bash
+```bash
 pm2 status
-\`\`\`
+```
 
 ---
 
@@ -203,20 +202,20 @@ pm2 status
 ### 6.1. Install Nginx
 Nginx will act as a reverse proxy to forward requests to your Node.js application:
 
-\`\`\`bash
+```bash
 sudo apt install nginx
-\`\`\`
+```
 
 ### 6.2. Configure Nginx
 Open the Nginx configuration file:
 
-\`\`\`bash
+```bash
 sudo nano /etc/nginx/sites-available/default
-\`\`\`
+```
 
 Modify the configuration to point to your React build for frontend requests and to your Node.js server for API requests. Example configuration:
 
-\`\`\`nginx
+```nginx
 server {
     listen 80;
     server_name yourdomain.com www.yourdomain.com;
@@ -236,20 +235,20 @@ server {
         proxy_cache_bypass $http_upgrade;
     }
 }
-\`\`\`
+```
 
 ### 6.3. Check and Restart Nginx
 Ensure the Nginx configuration is correct:
 
-\`\`\`bash
+```bash
 sudo nginx -t
-\`\`\`
+```
 
 Restart Nginx to apply the changes:
 
-\`\`\`bash
+```bash
 sudo service nginx restart
-\`\`\`
+```
 
 ---
 
@@ -262,11 +261,4 @@ Follow the instructions at [Certbot's official site](https://certbot.eff.org/) t
 
 ## Conclusion
 
-Congratulations! You’ve successfully deployed a MERN app on a Linode server using Nginx and PM2. Now your application is running in production with Nginx handling frontend and backend requests, and PM2 managing the backend processes.
-"""
-
-# Writing the content to a markdown file
-with open("deploy_mern_with_linode_nginx_pm2.md", "w") as file:
-    file.write(markdown_content)
-
-print("Markdown file generated: deploy_mern_with_linode_nginx_pm2.md")
+Congratulations! You�ve successfully deployed a MERN app on a Linode server using Nginx and PM2. Now your application is running in production with Nginx handling frontend and backend requests, and PM2 managing the backend processes.
