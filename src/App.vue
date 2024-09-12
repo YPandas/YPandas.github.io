@@ -40,4 +40,9 @@ export default {
   z-index: 3;
   width: 100%;
 }
+button, input, select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
 </style>
