@@ -164,6 +164,7 @@ export default {
 <style scoped>
 .project-wrapper {
     padding: 0 15%;
+    width: calc(100% - 30%);
 }
 
 .section-title {
