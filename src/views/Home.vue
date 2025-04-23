@@ -1,8 +1,13 @@
 <template>
     <div>
-      <div class="background-pic"></div>
       <div class="home-page">
         <HomeSection/>
+      </div>
+      <div class="about-page">
+        <AboutSection/>
+      </div>
+      <div class="stack-page">
+        <TechStackSection/>
       </div>
       <div class="project-page">
         <ProjectSection/>
@@ -10,25 +15,24 @@
       <div class="blog-page">
         <BlogSection/>
       </div>
-      <div class="photo-page">
-        <PhotoSection/>
-      </div>
     </div>
 </template>
 
 <script>
 import HomeSection from '@/components/HomeSection.vue'
+import AboutSection from '@/components/AboutSection.vue'
+import TechStackSection from '@/components/TechStackSection.vue'
 import ProjectSection from '@/components/ProjectSection.vue';
 import BlogSection from '@/components/BlogSection.vue';
-import PhotoSection from '@/components/PhotoSection.vue';
 
 export default {
   name: 'HomePage',
   components: {
     HomeSection,
+    AboutSection,
+    TechStackSection,
     ProjectSection,
     BlogSection,
-    PhotoSection
   }
 }
 </script>
@@ -52,6 +56,14 @@ export default {
   width: 100%;
   z-index: 1;
 }
+.about-page {
+  z-index: 2;
+  position: relative;
+}
+.stack-page {
+  z-index: 2;
+  position: relative;
+}
 .project-page {
     z-index: 2;
     height: 100vh;
@@ -59,12 +71,6 @@ export default {
     position: relative;
 }
 .blog-page {
-    z-index: 2;
-    height: 100vh;
-    width: 100%;
-    position: relative;
-}
-.photo-page {
     z-index: 2;
     height: 100vh;
     width: 100%;

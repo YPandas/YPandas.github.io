@@ -28,7 +28,6 @@ export default {
   height: 45%;
   width: 19%;
   position: relative;
-  background-color: #1f1f1f;
   border-radius: 12px;
   display: flex;
   justify-content: center;

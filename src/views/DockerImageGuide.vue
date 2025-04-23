@@ -17,6 +17,9 @@ export default {
       dockerPic
     }
   },
+  mounted() {
+    window.scrollTo(0, 0);
+  },
   components: {
     BlogContent
   }

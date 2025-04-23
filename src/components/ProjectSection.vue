@@ -1,101 +1,260 @@
 <template>
     <section id="projects">
         <div class="project-wrapper">
-            <div class="project-title">
-                Project Collections
-            </div>
+            <h1 class="section-title">* SELECTED PROJECTS</h1>
             <div class="project-list">
-                <ProjectBox 
-                :backgroundImage="wmWikiImage"
-                projectName="WhiteMatterWiki"
-                :imageText="wmWikiText"
-                :projectURL="wmWikiURL"/>
-                <ProjectBox
-                :backgroundImage="pointerImage"
-                projectName="Parcel Pointer"
-                :imageText="pointerText"
-                :projectURL="pointerURL"/>
-                <ProjectBox
-                :backgroundImage="biasImage"
-                projectName="Bias By Us"
-                :imageText="biasText"
-                :projectURL="biasURL"/>
-                <ProjectBox
-                :backgroundImage="seeM"
-                projectName="SeeMuseum"
-                :imageText="seeMText"
-                :projectURL="seeMText"/>
-                <ProjectBox
-                :backgroundImage="sfImage"
-                projectName="Test Case Management Platform"
-                :imageText="sfText"
-                :projectURL="sfURL"/>
-                <ProjectBox
-                :backgroundImage="hfoImage"
-                projectName="PyHFO"
-                :imageText="hfoText"
-                :projectURL="hfoURL"/>
-                <ProjectBox
-                :backgroundImage="safetyChallenge"
-                projectName="Intersection Safety Challenge"
-                :imageText="scText"
-                :projectURL="scURL"/>
-                <ProjectBox
-                :backgroundImage="postImage"
-                projectName="Post Forum"
-                :imageText="postText"
-                :projectURL="postURL"/>
+                <div class="project-item" data-preview-image="assets/project/project1.jpg">
+                    <span class="project-number">_01.</span>
+                    <a href="https://seemuseums.art/" target="_blank" rel="noopener noreferrer" class="project-name" data-text="SeeMuseums">SeeMuseums</a>
+                    <div class="tech-stack">
+                        <span>React.js</span>
+                        <span>Animation</span>
+                        <span>Large Language Model</span>
+                    </div>
+                    <div class="project-preview"></div>
+                </div>
+
+                <div class="project-item" data-preview-image="assets/pyHFO.png">
+                    <span class="project-number">_02.</span>
+                    <a href="https://github.com/roychowdhuryresearch/pyHFO" target="_blank" rel="noopener noreferrer" class="project-name" data-text="PyHFO">PyHFO</a>
+                    <div class="tech-stack">
+                        <span>Python</span>
+                        <span>PyQt</span>
+                        <span>Matlab</span>
+                    </div>
+                    <div class="project-preview"></div>
+                </div>
+
+                <div class="project-item" data-preview-image="assets/project/project3.jpg">
+                    <span class="project-number">_03.</span>
+                    <a href="https://www.sangfor.com/" target="_blank" rel="noopener noreferrer" class="project-name" data-text="Internal Task Management Platform">Internal Task Management Platform</a>
+                    <div class="tech-stack">
+                        <span>Vue.js</span>
+                        <span>Redis</span>
+                        <span>PostgreSQL</span>
+                    </div>
+                    <div class="project-preview"></div>
+                </div>
+
+                <div class="project-item" data-preview-image="assets/project/project4.jpg">
+                    <span class="project-number">_04.</span>
+                    <a href="https://github.com/YPandas/Yolo_Head_Detection" target="_blank" rel="noopener noreferrer" class="project-name" data-text="AutoTagger">AutoTagger</a>
+                    <div class="tech-stack">
+                        <span>Python</span>
+                        <span>YOLO</span>
+                        <span>OpenCV</span>
+                    </div>
+                    <div class="project-preview"></div>
+                </div>
+
+                <div class="project-item" data-preview-image="assets/project/project5.jpg">
+                    <span class="project-number">_05.</span>
+                    <a href="https://whitematterwiki.org/" target="_blank" rel="noopener noreferrer" class="project-name" data-text="WhiteMatterWiki">WhiteMatterWiki</a>
+                    <div class="tech-stack">
+                        <span>JavaFX</span>
+                        <span>R</span>
+                        <span>MongoDB</span>
+                    </div>
+                    <div class="project-preview"></div>
+                </div>
+
+                <div class="project-item" data-preview-image="assets/project/project6.jpg">
+                    <span class="project-number">_06.</span>
+                    <a href="https://parcel-pointers.netlify.app/" target="_blank" rel="noopener noreferrer" class="project-name" data-text="Parcel Pointer">Parcel Pointer</a>
+                    <div class="tech-stack">
+                        <span>React</span>
+                        <span>HTML</span>
+                        <span>CSS</span>
+                    </div>
+                    <div class="project-preview"></div>
+                </div>
             </div>
         </div>
     </section>
 </template>
 
-
 <script>
-import './style/ProjectSection.css';
-import ProjectBox from './ProjectBox.vue';
-import wmWikiImage from '../assets/wmWiki2.png';
-import pointerImage from '../assets/parcelPointer.png';
-import biasImage from '../assets/bias.png';
-import postImage from '../assets/postForum.png';
-import hfoImage from '../assets/pyHFO.png';
-import sfImage from '../assets/sangfor.png';
-import safetyChallenge from '../assets/safety_challenge.png';
-import seeM from '../assets/museum.png';
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
+gsap.registerPlugin(ScrollTrigger)
 
 export default {
     name: 'ProjectSection',
-    components: {
-        ProjectBox
+    mounted() {
+        const projectItems = this.$el.querySelectorAll('.project-item')
+        
+        projectItems.forEach((item, index) => {
+            gsap.set(item, {
+                opacity: 0,
+                y: 70
+            })
+
+            const scrollTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: item,
+                    start: 'top 97%',
+                    end: 'top 70%',
+                    scrub: 1.5,
+                    toggleActions: 'play none none reverse',
+                }
+            })
+
+            scrollTl.to(item, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power3.out',
+                delay: index * 0.1
+            })
+
+            // Add hover animation for project preview
+            const preview = item.querySelector('.project-preview')
+            const projectName = item.querySelector('.project-name')
+            
+            let hoverTl = gsap.timeline({ paused: true })
+            
+            hoverTl.to(preview, {
+                width: '80vh',
+                height: '50vh',
+                duration: 0.5,
+                ease: 'power2.out'
+            })
+            
+            projectName.addEventListener('mouseenter', () => {
+                const imagePath = item.dataset.previewImage
+                const img = new Image()
+                img.src = require('@/' + imagePath)
+                
+                img.onload = () => {
+                    const aspectRatio = img.width / img.height
+                    const maxWidth = window.innerWidth * 0.4 // 40% of viewport width
+                    const maxHeight = window.innerHeight * 0.5 // 50% of viewport height
+                    
+                    let width = maxWidth
+                    let height = width / aspectRatio
+                    
+                    if (height > maxHeight) {
+                        height = maxHeight
+                        width = height * aspectRatio
+                    }
+                    
+                    preview.style.backgroundImage = `url(${require('@/' + imagePath)})`
+                    hoverTl.to(preview, {
+                        width: `${width}px`,
+                        height: `${height}px`,
+                        duration: 0.5,
+                        ease: 'power2.out'
+                    }).play()
+                }
+            })
+
+            projectName.addEventListener('mouseleave', () => {
+                hoverTl.reverse()
+            })
+        })
     },
-    data() {
-        return {
-            wmWikiImage,
-            wmWikiText: "Visualizes over 60,000 documents, enables users to search and filter the lab's database, showing intricate relationships among ligands, receptors, and cells.",
-            wmWikiURL: "https://github.com/HandsomeYun/BioWeb",
-            pointerImage,
-            pointerText: "A website dedicated to teaching new CS learners about pointers with lessons and exercise. Of course, there's also our little friend PiPi",
-            pointerURL: "https://parcel-pointers.netlify.app",
-            biasImage,
-            biasText: "An interactive explanation of bias in machine learning algorithms, and how they affect multiple aspects of every-day life.",
-            biasURL: "https://bias-by-us.netlify.app/",
-            postImage,
-            postText: "An exclusive online marketplace for UCLA. Engineered features for product listings, user interactions, and tracking popularity using JavaScript and React.js.",
-            postURL: "https://github.com/lilyorlilypad/postForum_CS35L",
-            hfoImage,
-            hfoText: "A multi-window desktop application providing an integrated and user-friendly platform that includes time-efficient HFO detection algorithms  and deep learning models",
-            hfoURL: "https://github.com/roychowdhuryresearch/pyHFO",
-            sfImage,
-            sfText: "Develop reactive pages for the company's test case management platform. Contributed to the redesign ofthe company’s internal management system.",
-            sfURL: "https://www.sangfor.com/",
-            safetyChallenge,
-            scText: "Contributed to the enhancement of intersection safety by labeling data for machine learning models. Facilitated better prediction of pedestrian and vehicle movement through the use of sensor fusion, machine vision, and real-time decision-making technologies",
-            scURL: "https://www.challenge.gov/?challenge=us-dot-intersection-safety-challenge&tab=resources",
-            seeM,
-            seeMText: "Contributed to the digital transformation of a museum by implementing UX/UI design drafts into functional web pages. Focused on creating engaging animations and enhancing the visual appeal of the website to deliver a seamless user experience.",
-            seeMURL: "",
-        };
+    beforeUnmount() {
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill())
     }
 }
 </script>
+
+
+<style scoped>
+.project-wrapper {
+    padding: 0 15%;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: white;
+    font-family: var(--font-descriptive);
+}
+
+.project-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.project-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+    position: relative;
+}
+
+.project-number {
+    color: #ffdb00;
+    margin-right: 2%;
+    font-size: 1rem;
+    font-family: var(--font-descriptive);
+}
+
+.project-name {
+    display: block;
+    font-size: 2.4rem;
+    margin: 0.5rem 0;
+    color: white;
+    text-decoration: none;
+    transition: all 0.5s cubic-bezier(0.84, 0, 0.08, 0.99);
+    font-family: var(--font-title);
+    position: relative;
+    transform-origin: left;
+    display: inline-block;
+}
+
+.project-name::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    color: #ffdb00;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: width 0.5s cubic-bezier(0.84, 0, 0.08, 0.99);
+    display: inline-block;
+}
+
+.project-name:hover {
+    transform: scale(1.1);
+}
+
+.project-name:hover::before {
+    width: 100%;
+}
+
+.tech-stack {
+    display: flex;
+    gap: 1rem;
+    font-family: var(--font-descriptive);
+}
+
+.tech-stack span {
+    color: #ffdb00;
+    font-size: 0.9rem;
+}
+
+.project-preview {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: visible;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    border-radius: 4px;
+    z-index: 10;
+}
+
+.project-item:hover .project-preview {
+    opacity: 1;
+}
+</style>

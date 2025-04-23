@@ -6,46 +6,90 @@ import DockerUnd from '@/views/DockerUnderstanding.vue'
 import DockerGuide from '@/views/DockerImageGuide.vue'
 import Py2App from '@/views/PythonToMacApp.vue'
 import MernDeploy from '@/views/MernDeploy.vue';
+import ProjectDetail from '../components/ProjectDetail.vue';
+import { projects } from '../store/projects';
+import { scrollStore } from '../store/scroll';
 
 Vue.use(Router);
 
-export default new Router({
-  // mode: 'history',
+const router = new Router({
+  mode: 'hash',
   routes: [
     {
       path: '/',
       name: 'Home',
-      component: HomePage
+      component: HomePage,
+      beforeLeave(to, from, next) {
+        scrollStore.saveHomeScrollPosition();
+        next();
+      }
     },
     {
-      path: '/Kubernetes-Mirroring-Setup',
+      path: '/blog/kubernetes-mirroring-setup',
       name: 'Kubernetes-Mirroring-Setup',
       component: K8sSetup
     },
     {
-      path: '/MERN-Update-Guide',
+      path: '/blog/mern-update-guide',
       name: 'MERNUpdateGuide',
       component: () => import('@/views/MERNUpdateGuide.vue') // Lazy-loaded
     },
     {
-      path: '/Docker-Intro',
+      path: '/blog/docker-intro',
       name: 'Docker-Intro',
       component: DockerUnd
     },
     {
-      path: '/Docker-Image-Guide',
+      path: '/blog/docker-image-guide',
       name: 'Docker-Image-Guide',
       component: DockerGuide
     },
     {
-      path: '/Py2App-Guide',
+      path: '/blog/py2app-guide',
       name: 'Py2App-Guide',
       component: Py2App
     },
     {
-      path: '/MERN-Deploy',
+      path: '/blog/mern-deploy',
       name: 'MERN-Deploy',
       component: MernDeploy
+    },
+    {
+      path: '/project/:id',
+      name: 'ProjectDetail',
+      component: ProjectDetail,
+      props: route => ({
+        project: projects[route.params.id]
+      }),
+      beforeEnter: (to, from, next) => {
+        if (projects[to.params.id]) {
+          next();
+        } else {
+          next('/');
+        }
+      }
     }
-  ]
+  ],
+  scrollBehavior(to, from) {
+    
+    if (from.path.startsWith('/blog/') && to.path === '/') {
+      return { x: 0, y: scrollStore.homeScrollPosition };
+    } else {
+      return { x: 0, y: 0 };
+    }
+  }
 });
+
+// Add global navigation guard to debug and save scroll position
+router.beforeEach((to, from, next) => {
+  
+  // Save scroll position when leaving home page for a blog
+  if (from.path === '/' && to.path.startsWith('/blog/')) {
+    const currentScroll = window.scrollY;
+    scrollStore.homeScrollPosition = currentScroll;
+  }
+  
+  next();
+});
+
+export default router;

@@ -19,6 +19,9 @@ export default {
   },
   components: {
     BlogContent
+  },
+  mounted() {
+    window.scrollTo(0, 0);
   }
 }
 </script>

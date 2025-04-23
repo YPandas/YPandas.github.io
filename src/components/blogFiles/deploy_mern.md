@@ -261,4 +261,4 @@ Follow the instructions at [Certbot's official site](https://certbot.eff.org/) t
 
 ## Conclusion
 
-Congratulations! You�ve successfully deployed a MERN app on a Linode server using Nginx and PM2. Now your application is running in production with Nginx handling frontend and backend requests, and PM2 managing the backend processes.
+Congratulations! You've successfully deployed a MERN app on a Linode server using Nginx and PM2. Now your application is running in production with Nginx handling frontend and backend requests, and PM2 managing the backend processes.
