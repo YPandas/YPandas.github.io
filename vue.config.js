@@ -5,6 +5,12 @@ module.exports = defineConfig({
   outputDir: 'docs',
   assetsDir: 'static',
   transpileDependencies: true,
+  pages: {
+    index: {
+      entry: 'src/main.js',
+      title: 'Yuqi Huang - Portfolio',
+    }
+  },
   chainWebpack: config => {
     config.module
       .rule('markdown')
