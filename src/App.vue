@@ -86,9 +86,19 @@ export default {
   --font-title: 'Anton', sans-serif;
 }
 
+html, body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
 .app-container {
   position: relative;
   min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 button, input, select {
