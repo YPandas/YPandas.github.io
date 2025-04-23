@@ -84,10 +84,12 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding: 0 16%;
+    padding: 0 5%;
     height: 100vh;
     color: white;
     position: relative;
+    width: calc(100% - 10%);
+    overflow-x: hidden;
 }
 
 .title-section {
@@ -192,6 +194,19 @@ export default {
         position: static;
         margin-top: 2rem;
         align-items: flex-start;
+    }
+}
+
+@media (min-width: 768px) {
+    .home-wrapper {
+        padding: 0 10%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .home-wrapper {
+        padding: 0 16%;
+        width: calc(100% - 32%);
     }
 }
 </style>
